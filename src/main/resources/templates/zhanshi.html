@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/carousel.css">
+    <style type="text/css">
+
+        #bigdiv{
+            height: 1490px;
+            margin: auto;
+            border: 1px solid;
+        }
+        #logo{
+            height: 40px;
+            margin-top: 15px;
+            margin: auto;
+
+        }
+        #sousuo{
+            width: 600px;
+            height: 25px;
+            margin: auto;
+            margin-top: 25px;
+        }
+        .lbimg{
+            width: 800px;
+            height: 350px;
+        }
+        #lbdiv {
+            width: 800px;
+            height: 350px;
+            border: 1px solid;
+            margin-left: 600px;
+            margin-top: 65px;
+
+        }
+        #show1{
+            width: 1200px;
+            height: 750px;
+            margin: auto;
+            margin-top: 20px;
+            border: 1px solid;
+        }
+        .meishi{
+            width: 330px;
+            height: 300px;
+            margin-top: 10px;
+            margin-left: 20px;
+            border: 1px solid;
+            float: left;
+        }
+        .meishiimgdiv{
+            width: 330px;
+            height: 260px;
+        }
+    </style>
+</head>
+<body>
+<div id="bigdiv">
+    <div id="logo" >
+       <pre><td ><ul >Hi 欢迎来到猪头 燕子美食   <a th:href="@{/loginView}">请登录</a>    <a th:href="@{/ZhuCe}">免费注册</a>               <a th:href="@{/loadUser}">个人中心</a>    <a th:href="@{/goOut}">退出登录</a></ul></td></pre>
+    </div>
+        <div id="sousuo" class="container">
+            <div class="input-group">
+                <input type="text" class="form-control input-lg"><span class="input-group-addon btn btn-primary">搜索</span>
+            </div>
+        </div>
+<div id="lbdiv">
+    <img id="img1" onmouseover="stoplb()" onmouseout="startlb()" class="lbimg" src="lbimg/lb1.jpg"/>
+
+</div>
+    <div id="show1">
+       <div class="meishi" th:each="m:${goodsList}">
+               <tr >
+                   <img class="meishiimgdiv" th:src="${m.gimg}" />
+               </tr>
+               <tr>
+                    <td th:text="${m.gname}"></td>
+                    <td th:text="${m.gprice}"></td>
+                </tr>
+           </div>
+           <div>
+            <tr >
+               <td align="center" colspan="2" >
+                   <ul class="pagination">
+                       <a th:href="@{/findAll(page=1)}">首页</a>
+                       <a th:href="@{/findAll(page=${currentPage+1})}">上一页</a>
+                       <a th:href="@{/findAll(page=${currentPage-1})}">下一页</a>
+                       <a th:href="@{/findAll(page=${maxPage})}">末页</a>
+                   </ul>
+               </td>
+            </tr>
+           </div>
+    </div>
+</div>
+</body>
+<script>
+    var intervaling=null;
+    window.onload=function(){
+        intervaling=setInterval(function () {
+            showing();
+        },1500 );
+    }
+    var imgs=[
+        "lbimg/lb1.jpg",
+        "lbimg/lb2.jpg",
+        "lbimg/lb3.jpg",
+        "lbimg/lb4.jpg",
+        "lbimg/lb5.jpg"
+    ];
+
+    var count=0;
+    function showing() {
+        count=count%4;
+        var img1=document.getElementById("img1");
+        img1.setAttribute("src",imgs[count]);
+        count++;
+    }
+
+    function startlb() {
+        intervaling=setInterval(function () {
+            showing();
+        },1500 );
+    }
+    function stoplb() {
+        clearInterval(intervaling);
+    }
+</script>
+</html>
