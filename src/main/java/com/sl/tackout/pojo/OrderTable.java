@@ -18,6 +18,6 @@ public class OrderTable {
     private String ogoodsName;//商品名称
     private double ogoodsUnitprice;//商品单价
     private String oremarks;//备注
-    private int ostate;//订单状态（1表示客户已下单，2表示订单已完成，0表示订单未完成）
+    private int ostate;//订单状态（0表示订单未完成，1表示客户已下单，2表示商家已接单，3表示订单已完成）
 
 }

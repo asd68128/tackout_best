@@ -31,6 +31,10 @@ public class ShiroConfig {
         //定义过滤规则
         map.put("/drink","authc");//需要登陆之后才能访问点餐页面
         map.put("/pay","authc");//需要登陆之后才能访问支付页面
+        map.put("/member","authc");//需要登陆之后才能访问购买会员页面
+        map.put("/new_custom","authc");//需要登陆之后才能访问新客优惠页面
+        map.put("/member_coupon","authc");//需要登陆之后才能访问新客优惠页面
+
         //map.put("/member","perms[sales,exclusive]");//需要(特价优惠、会员专享)权限才能访问
         //map.put("/new_custom","roles[新用户]");//需要新客户角色才能访问
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);//需要过滤链的定义

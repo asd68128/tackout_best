@@ -13,7 +13,29 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/login.css">
     <style>
-
+        body{
+            text-align:center
+        }
+        img{
+            width: 427px;
+            height: 120px;
+        }
+        span{
+            font-size: 20px;
+        }
+        input{
+            width: 20px;
+            height: 20px;
+        }
+        #div1{
+            margin:0 auto
+        }
+        button{
+            height: 40px;
+            width: 150px;
+            background-color: #eea236;
+            font-size: 15px
+        }
     </style>
 </head>
 <body>
@@ -36,16 +58,36 @@
     </div>
 </div>
 <div>
-    <h2>购买会员页</h2>
+    <h2>领取优惠券</h2>
     <p>
-        尊敬的
-        <span th:text="${session.userName}"></span>,
-        欢迎购买会员，开用会员后您将享有以下福利：
-    </p>
+        <h3>尊敬的：<span th:text="${session.userName}"></span>,</h3>
+        成为会员每天都可领取优惠券，让您的购物更优惠
 
-    <a href="bm_pay">
-        <img src="img/member.jpg"/>
-    </a>
+    </p>
+    <div id="div1">
+
+            <label>
+                <span>3元优惠券：</span>
+                <img src="img/3yuan.jpg"/>
+                <input type="radio" name="coupon" checked="checked"/>
+            </label>
+        <br>
+            <label>
+                <span>5元优惠券：</span>
+                <img src="img/5yuan.jpg"/>
+                <input type="radio" name="coupon"/>
+            </label>
+        <br>
+            <label>
+                <span>15元优惠券：</span>
+                <img src="img/15yuan.jpg"/>
+                <input type="radio" name="coupon"/>
+            </label>
+        <br>
+        <button type="button" onclick="window.location.href='main'">领取</button>
+
+    </div>
+
 
 
 </div>
