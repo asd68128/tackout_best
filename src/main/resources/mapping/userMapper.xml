@@ -38,11 +38,11 @@
         VALUES
         (#{userId},#{userName},#{userPwd},#{userPhone},#{userCreatTime},#{userPhoto})
     </insert>
-    <insert id="addRole" parameterType="string">
+    <insert id="addMemberRole" parameterType="string">
         INSERT INTO
         user_role_table
         VALUES
-        ()
+        ((SELECT userId FROM user_table WHERE userName=#{userName}),4 )
     </insert>
 
 </mapper>

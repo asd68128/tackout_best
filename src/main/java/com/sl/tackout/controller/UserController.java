@@ -52,9 +52,9 @@ public class UserController {
         return "redirect:login";
     }
 
-    @RequestMapping("buying_members")//购买会员页
+    @RequestMapping("member_coupon")//购买会员页
     public String buyingMembers() {
-        return "buying_members";
+        return "member_coupon";
     }
     @RequestMapping("drink")//点餐
     public String drink() {
@@ -81,10 +81,7 @@ public class UserController {
     public String bmPay(){
         return "bm_pay";
     }
-    @RequestMapping("determine_purchase")//提交购买会员订单
-    public String determinePurchase(){
-        return "main";
-    }
+
 
     //验证码显示
     @RequestMapping("getImg")
@@ -158,6 +155,18 @@ public class UserController {
         }else {//输入空信息
             model.addAttribute("error", "请输入完整的用户名密码");
             return "login";
+        }
+    }
+
+    @RequestMapping("determine_purchase")//提交购买会员订单
+    public String determinePurchase(HttpSession session,Model model){
+        String userName = (String) session.getAttribute("userName");
+        boolean addMemberRole = userService.addMemberRole(userName);
+        if (addMemberRole){
+            return "main";
+        }else {
+            model.addAttribute("error","你已经是会员了，请勿重复购买");
+            return "determine_purchase";
         }
     }
 }

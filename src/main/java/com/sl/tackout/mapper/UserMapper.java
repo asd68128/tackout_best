@@ -19,5 +19,5 @@ public interface UserMapper {
     public int addUser(UserTable userTable);
 
     //修改当前用户角色（购买会员）
-    public int addRole(String userName);
+    public int addMemberRole(String userName);
 }

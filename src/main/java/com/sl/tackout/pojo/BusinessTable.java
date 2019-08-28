@@ -15,22 +15,22 @@ public class BusinessTable {
     private int businessState;//商家状态（0表示商家已注销，1表示正常营业，2表示商家已休息）
     private String businessInfo;//商家信息（简介）
     private String businessImg;//商家图片
-    private String shopName;//商家店名bbbbbbbbbbbb
+    private String shopName;//商家店名
 
     public BusinessTable() {
     }
 
     public BusinessTable(int businessId, String businessName, String businessPwd, String businessAddress, String businessPhone, int businessState, String businessInfo, String businessImg, String shopName) {
 
-        this.businessId = businessId;
-        this.businessName = businessName;
-        this.businessPwd = businessPwd;
-        this.businessAddress = businessAddress;
-        this.businessPhone = businessPhone;
-        this.businessState = businessState;
-        this.businessInfo = businessInfo;
-        this.businessImg = businessImg;
-        this.shopName = shopName;
+        this.businessId = businessId;//商家id
+        this.businessName = businessName;//商家账号
+        this.businessPwd = businessPwd;//商家密码
+        this.businessAddress = businessAddress;//商家地址
+        this.businessPhone = businessPhone;//商家手机号
+        this.businessState = businessState;//商家状态（0表示已下线，1表示正在营业，2表示已休息）
+        this.businessInfo = businessInfo;//商家信息
+        this.businessImg = businessImg;//商家图片
+        this.shopName = shopName;//商家店铺名称
     }
 
     public int getBusinessId() {
