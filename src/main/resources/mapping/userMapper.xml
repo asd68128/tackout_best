@@ -6,15 +6,20 @@
         <id property="userId" column="userId"/>
         <result property="userName" column="userName"/>
         <result property="userPwd" column="userPwd"/>
+        <result property="userRealname" column="userRealname"/>
         <result property="userPhone" column="userPhone"/>
+        <result property="userAdress" column="userAdress"/>
         <result property="userCreatTime" column="userCreatTime"/>
         <result property="userPhoto" column="userPhoto"/>
+
     </resultMap>
     <sql id="userSql">
         userId,
         userName,
         userPwd,
+        userRealname,
         userPhone,
+        userAdress,
         userCreatTime,
         userPhoto
     </sql>
@@ -38,6 +43,22 @@
         VALUES
         (#{userId},#{userName},#{userPwd},#{userRealname},#{userPhone},#{userAdress},#{userCreatTime},#{userPhoto})
     </insert>
+    <update id="updateUserInfo" parameterType="com.sl.tackout.pojo.UserTable">
+        UPDATE
+        user_table
+        SET
+        userPwd=#{userPwd},userRealname=#{userRealname},userAdress=#{userAdress},userPhoto=#{userPhoto}
+        WHERE
+        userId=#{userId}
+    </update>
+    <update id="updateUserAddress" parameterType="string">
+        UPDATE
+        user_table
+        SET
+       userAdress=#{userAdress}
+        WHERE
+        userName=#{userName}
+    </update>
 
 
 </mapper>

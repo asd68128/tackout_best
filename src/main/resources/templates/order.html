@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>订单</title>
@@ -49,6 +50,12 @@
         }
         #aads{
             float: right;
+        }
+        .btsmal{
+            text-align: center;
+        }
+        .divps{
+            white-space:nowrap;
         }
 
     </style>
@@ -117,19 +124,27 @@
 <div class="divi1">
     <div class="divi2">
         <span>收货地址</span>
-        <a href="#" id="aads">更换地址</a>
+        <a href="upAddress" id="aads">更换地址</a>
         <br>
-        <input value="xxxxxxxxxxx" style="height: 80px;width: 80%" readonly/>
+        <div class="btsmal">
+            <input th:value="${user.getUserAdress()}" style="height: 80px;width: 80%" readonly/>
+        </div>
+
     </div>
     <div id="btdiv">
         <div class="divi2">
             <span>付款方式</span>
-            <button id="btn" style="width: 150px;height: 70px;">在线支付</button>  <button id="btn2" style="width: 150px;height: 70px;">银行卡支付</button>
+            <div class="btsmal">
+                <button id="btn" style="width: 150px;height: 70px;">在线支付</button>  <button id="btn2" style="width: 150px;height: 70px;">银行卡支付</button>
+            </div>
+           
         </div>
         <div class="divi2">
             <span>使用优惠</span>
-            使用优惠券
-            <button id="btn3" style="width: 150px;height: 70px;">5元</button>  <button id="btn4" style="width: 150px;height: 70px;">10元</button>
+            <div class="btsmal">
+                <button id="btn3" style="width: 150px;height: 70px;">5元</button>  <button id="btn4" style="width: 150px;height: 70px;">10元</button>
+            </div>
+            
 
         </div>
     </div>
@@ -139,19 +154,24 @@
             配送方式：
             <br>
             <label>
-                自取<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                <span>自取</span>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
             </label>
             <label>
-                骑手配送<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                <span>骑手配送</span>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
             </label>
         </div>
-        送达时间：<select class="form-control" style="width: 40%">
-            <option>现在</option>
-            <option>30分钟</option>
-            <option>一个小时</option>
-        </select>
+        <div class="divps">
+            <span>送达时间：</span>
+            <select class="form-control" style="width: 40%;">
+                <option>现在</option>
+                <option>30分钟</option>
+                <option>一个小时</option>
+            </select>
+        </div>
+
         订单备注：<input type="text"/>
-    </select>
     </div>
     <div class="bt1">
         <button  type="button" class="btn btn-success" >确定下单</button>
@@ -163,7 +183,6 @@
 <script src="jquery/jquery-2.1.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script>
-    $(do)
     $('#btn','#btn2','#btn3','#btn4').click(function(){//给id为btn的元素添加点击事件
         $(this).toggleClass('active');//每次点击的时候，将当前的元素切换active样式
                                       //如果有，则去掉，否则添加

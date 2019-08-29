@@ -3,6 +3,7 @@ package com.sl.tackout.mapper;
 import com.sl.tackout.pojo.RoleTable;
 import com.sl.tackout.pojo.UserTable;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Created by happy on 2019/8/21.
@@ -19,5 +20,10 @@ public interface UserMapper {
     //添加注册的用户
     public int addUser(UserTable userTable);
 
+    //修改用户信息
+    public int updateUserInfo(UserTable userTable);
+
+    //修改用户地址
+    public int updateUserAddress(@Param("userAdress") String userAddress, @Param("userName") String userName);
 
 }

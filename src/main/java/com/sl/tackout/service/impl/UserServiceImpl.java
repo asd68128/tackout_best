@@ -31,5 +31,17 @@ public class UserServiceImpl implements UserService {
         return count>0?true:false;
     }
 
+    @Override
+    public boolean updateUserInfo(UserTable userTable) {
+        int count = userMapper.updateUserInfo(userTable);
+        return count>0?true:false;
+    }
+
+    @Override
+    public boolean updateUserAddress(String userAddress, String userName) {
+        int count = userMapper.updateUserAddress(userAddress, userName);
+        return count>0?true:false;
+    }
+
 
 }

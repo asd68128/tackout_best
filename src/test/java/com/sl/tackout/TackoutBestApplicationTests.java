@@ -58,8 +58,9 @@ public class TackoutBestApplicationTests {
 //			a=a-1;
 //		}while (a>0);
 //		System.out.println(c);
-		roleMapper.addMemberRole("aaa");
-
+//		roleMapper.addMemberRole("aaa");
+		boolean b = userService.updateUserAddress("aaa", "aaa");
+		System.out.println(b);
 	}
 
 }

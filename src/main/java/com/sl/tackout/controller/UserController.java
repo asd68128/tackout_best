@@ -20,9 +20,11 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -61,6 +63,35 @@ public class UserController {
     public String userCenter(){
         return "user_center";
     }
+    @RequestMapping("personal_info")//个人信息
+    public String personalInfo(HttpSession session,Model model){
+        String userName = (String) session.getAttribute("userName");
+        UserTable userInfo = userService.findUserByLoginName(userName);
+        if (userInfo!=null){
+            model.addAttribute("userInfo",userInfo);
+            return "personal_info";
+        }else {
+            return "login";
+        }
+    }
+    @RequestMapping("user_info")//修改个人信息
+    public String userInfo(UserTable userTable,Model model){
+        if (userTable.getUserRealname()!=null || userTable.getUserAdress()!=null
+                || userTable.getUserRealname()!="" || userTable.getUserAdress()!=""){
+            boolean updateUserInfo = userService.updateUserInfo(userTable);
+            if (updateUserInfo){
+
+                return "main";
+            }else {
+
+                return "personal_info";
+            }
+        }else {
+            model.addAttribute("error","信息不能为空");
+            return "personal_info";
+        }
+    }
+
 
     @RequestMapping("bm_pay")//购买会员
     public String bmPay(){
@@ -72,13 +103,46 @@ public class UserController {
         return "member_coupon";
     }
     @RequestMapping("drink")//点餐
-    public String drink() {
-        return "drink";
+    public String drink(HttpSession session) {
+        String userName = (String) session.getAttribute("userName");
+        UserTable userInfo = userService.findUserByLoginName(userName);
+        if (userInfo.getUserRealname()!=null && userInfo.getUserAdress()!=null){
+            return "drink";
+        }else {
+            return "user_center";
+        }
+
     }
     @RequestMapping("order")//提交订单
-    public String pay() {
+    public String pay(HttpSession session,Model model) {
+        String userName = (String) session.getAttribute("userName");
+        UserTable userInfo = userService.findUserByLoginName(userName);
+        model.addAttribute("user",userInfo);
         return "order";
     }
+    @RequestMapping("upAddress")//修改地址
+    public String upAddress(HttpSession session,Model model) {
+        String userName = (String) session.getAttribute("userName");
+        UserTable userInfo = userService.findUserByLoginName(userName);
+        model.addAttribute("address",userInfo.getUserAdress());
+        return "upAddress";
+    }
+    @RequestMapping("newAddress")//跟换新地址
+    public String newAddress(HttpSession session,Model model,String userAddress) {
+        System.out.println(userAddress);
+        String userName = (String) session.getAttribute("userName");
+        boolean updateUserAddress = userService.updateUserAddress(userAddress, userName);
+        if (updateUserAddress){
+            return "redirect:order";
+        }else {
+
+            return "upAddress";
+        }
+
+    }
+
+
+
 
 
 
