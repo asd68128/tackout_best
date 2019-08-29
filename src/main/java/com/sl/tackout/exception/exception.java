@@ -14,7 +14,7 @@ public class exception {
     @ExceptionHandler(value = UnauthorizedException.class)
     public String handlerException(HttpServletRequest request,Exception e){
 
-        return "buying_members";
+        return "bm_pay";
     }
 
 }

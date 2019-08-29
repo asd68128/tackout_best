@@ -9,5 +9,4 @@ public interface UserService {
     public UserTable findUserByLoginName(String userName);
     public int findMaxUserId();
     public boolean addUser(UserTable userTable);
-    public boolean addMemberRole(String userName);
 }

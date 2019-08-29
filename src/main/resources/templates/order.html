@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/login.css">
+    <style>
+        .divo1{
+            float:left;
+            width:50%;
+            height: 600px;
+            background-color: #00CCFF;
+            border-color: #00CCFF;
+        }
+        .divi1{
+            float: left;
+            width: 48%;
+            height: 600px;
+            background-color: #eea236;
+            border-width: 10px;
+            border-color: #122b40;
+        }
+        .divi2{
+            height: 115px;
+            border-top: 1px solid gray;
+            border-bottom: 1px solid gray;
+            margin: 2px 0;
+        }
+        .divi3{
+            height: 165px;
+            border-top: 1px solid gray;
+            border-bottom: 1px solid gray;
+            margin: 2px 0;
+        }
+        .goodsNum{
+            float: right;
+            padding-bottom: 20px;
+        }
+        .bt1{
+            text-align:center
+        }
+        button{
+            background:#fff;
+        }
+        button.active{
+            background:green;
+        }
+        #aads{
+            float: right;
+        }
+
+    </style>
+</head>
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: white; height: 50px">
+            <div class="container">
+                <div class="navbar-header">
+                    <p>当前选择的位置：<span />  </p>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="login">个人中心</a></li>
+                        <li><a href="reg">设置</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div>
+            <a class="navbar-brand" href="/" style="font-size:32px;">啃得鸡霾当烙得客势外卖专家</a>
+        </div>
+
+    </div>
+</div>
+<div class="divo1">
+
+    <h2>订单详情</h2><a>返回商家修改</a>
+    <div class="table-responsive">
+        <table class="table  table-bordered">
+            <thead>
+            <tr >
+                <th width="50">序号</th>
+                <th >商品</th>
+                <th width="60">数量</th>
+                <th  width="90">小计（元）</th>
+                <th width="90">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>黄焖鸡</td>
+                <td>1</td>
+                <td>22</td>
+                <td>
+                    <button type="button" class="">-</button><input style="width: 25px" value="1"/><button type="button" class="">+</button>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <div class="goodsNum">
+        <div  >
+            ￥<span>xxx</span>元
+        </div>
+        <div class="" >
+            共<span style="color: yellow">10</span>份商品
+        </div>
+    </div>
+
+
+</div>
+<div class="divi1">
+    <div class="divi2">
+        <span>收货地址</span>
+        <a href="#" id="aads">更换地址</a>
+        <br>
+        <input value="xxxxxxxxxxx" style="height: 80px;width: 80%" readonly/>
+    </div>
+    <div id="btdiv">
+        <div class="divi2">
+            <span>付款方式</span>
+            <button id="btn" style="width: 150px;height: 70px;">在线支付</button>  <button id="btn2" style="width: 150px;height: 70px;">银行卡支付</button>
+        </div>
+        <div class="divi2">
+            <span>使用优惠</span>
+            使用优惠券
+            <button id="btn3" style="width: 150px;height: 70px;">5元</button>  <button id="btn4" style="width: 150px;height: 70px;">10元</button>
+
+        </div>
+    </div>
+    <div class="divi3">
+        <span>其他信息</span>
+        <div class="radio">
+            配送方式：
+            <br>
+            <label>
+                自取<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+            </label>
+            <label>
+                骑手配送<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+            </label>
+        </div>
+        送达时间：<select class="form-control" style="width: 40%">
+            <option>现在</option>
+            <option>30分钟</option>
+            <option>一个小时</option>
+        </select>
+        订单备注：<input type="text"/>
+    </select>
+    </div>
+    <div class="bt1">
+        <button  type="button" class="btn btn-success" >确定下单</button>
+    </div>
+
+
+</div>
+
+<script src="jquery/jquery-2.1.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+    $(do)
+    $('#btn','#btn2','#btn3','#btn4').click(function(){//给id为btn的元素添加点击事件
+        $(this).toggleClass('active');//每次点击的时候，将当前的元素切换active样式
+                                      //如果有，则去掉，否则添加
+    });
+</script>
+
+
+</body>
+</html>

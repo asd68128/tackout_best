@@ -31,9 +31,5 @@ public class UserServiceImpl implements UserService {
         return count>0?true:false;
     }
 
-    @Override
-    public boolean addMemberRole(String userName) {
-        int count = userMapper.addMemberRole(userName);
-        return count>0?true:false;
-    }
+
 }

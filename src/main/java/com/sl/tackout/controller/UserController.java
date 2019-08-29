@@ -11,6 +11,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,22 @@ public class UserController {
         subject.logout();//用户登出，清除用户在shiro中的驻留信息
         return "redirect:login";
     }
+    @RequestMapping("main")//用户主页面
+    public String main() {
+        return "main";
+    }
 
-    @RequestMapping("member_coupon")//购买会员页
+    @RequestMapping("user_center")//用户个人中心
+    public String userCenter(){
+        return "user_center";
+    }
+
+    @RequestMapping("bm_pay")//购买会员
+    public String bmPay(){
+        return "bm_pay";
+    }
+    @RequiresPermissions("coupon")
+    @RequestMapping("member_coupon")//领取优惠券
     public String buyingMembers() {
         return "member_coupon";
     }
@@ -60,27 +75,12 @@ public class UserController {
     public String drink() {
         return "drink";
     }
-    @RequestMapping("main")//用户主页面
-    public String main() {
-        return "main";
-    }
-    @RequiresPermissions(value = "exclusive")
-    @RequestMapping("member")//会员页面
-    public String member() {
-        return "member";
-    }
-    @RequestMapping("pay")//订单支付
+    @RequestMapping("order")//提交订单
     public String pay() {
-        return "pay";
+        return "order";
     }
-    @RequestMapping("user_center")//用户个人中心
-    public String userCenter(){
-        return "user_center";
-    }
-    @RequestMapping("bm_pay")//确定购买会员
-    public String bmPay(){
-        return "bm_pay";
-    }
+
+
 
 
     //验证码显示
@@ -105,7 +105,7 @@ public class UserController {
                 String md5Upwd = new MD5().getMD5ofStr(userPwd);
                 Date date = new Date();
 //            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
-                UserTable userTable = new UserTable(UserId, userName, md5Upwd, userPhone, date, null);
+                UserTable userTable = new UserTable(UserId, userName, md5Upwd,null,userPhone,null, date, null);
                 boolean b = userService.addUser(userTable);
                 if (b) {//添加成功
                     return "login";
@@ -130,7 +130,6 @@ public class UserController {
             Subject subject = SecurityUtils.getSubject();
             String md5Upwd = new MD5().getMD5ofStr(userPwd);
             UsernamePasswordToken token = new UsernamePasswordToken(userName,md5Upwd);
-            System.out.println(token);
             try {
                 subject.login(token);
                 if (subject.isAuthenticated()) {
@@ -158,15 +157,4 @@ public class UserController {
         }
     }
 
-    @RequestMapping("determine_purchase")//提交购买会员订单
-    public String determinePurchase(HttpSession session,Model model){
-        String userName = (String) session.getAttribute("userName");
-        boolean addMemberRole = userService.addMemberRole(userName);
-        if (addMemberRole){
-            return "main";
-        }else {
-            model.addAttribute("error","你已经是会员了，请勿重复购买");
-            return "determine_purchase";
-        }
-    }
 }

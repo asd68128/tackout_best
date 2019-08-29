@@ -2,6 +2,7 @@ package com.sl.tackout;
 
 import com.sl.tackout.mapper.BusinessMapper;
 import com.sl.tackout.mapper.PermissionMapper;
+import com.sl.tackout.mapper.RoleMapper;
 import com.sl.tackout.pojo.BusinessTable;
 import com.sl.tackout.pojo.PermissionTable;
 import com.sl.tackout.pojo.UserTable;
@@ -26,6 +27,8 @@ public class TackoutBestApplicationTests {
 	private PermissionMapper permissionMapper;
 	@Autowired
 	private BusinessMapper businessMapper;
+	@Autowired
+	private RoleMapper roleMapper;
 
 	@Test
 	public void contextLoads() {
@@ -45,8 +48,18 @@ public class TackoutBestApplicationTests {
 //			 ) {
 //			System.out.println(p);
 //		}
-		BusinessTable asd = businessMapper.findBusinessByLoginName("asd");
-		System.out.println(asd);
+//		BusinessTable asd = businessMapper.findBusinessByLoginName("asd");
+//		System.out.println(asd);
+
+//		int a=-1;
+//		int c=0;
+//		do {
+//			--c;
+//			a=a-1;
+//		}while (a>0);
+//		System.out.println(c);
+		roleMapper.addMemberRole("aaa");
+
 	}
 
 }

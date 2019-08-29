@@ -36,14 +36,9 @@
         INSERT INTO
         user_table
         VALUES
-        (#{userId},#{userName},#{userPwd},#{userPhone},#{userCreatTime},#{userPhoto})
+        (#{userId},#{userName},#{userPwd},#{userRealname},#{userPhone},#{userAdress},#{userCreatTime},#{userPhoto})
     </insert>
-    <insert id="addMemberRole" parameterType="string">
-        INSERT INTO
-        user_role_table
-        VALUES
-        ((SELECT userId FROM user_table WHERE userName=#{userName}),4 )
-    </insert>
+
 
 </mapper>
 

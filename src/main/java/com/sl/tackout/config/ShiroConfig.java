@@ -39,7 +39,7 @@ public class ShiroConfig {
         //map.put("/new_custom","roles[新用户]");//需要新客户角色才能访问
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);//需要过滤链的定义
         shiroFilterFactoryBean.setLoginUrl("/login");//设置默认登录页
-        shiroFilterFactoryBean.setUnauthorizedUrl("/buying_members");//权限不足显示购买会员页面
+        shiroFilterFactoryBean.setUnauthorizedUrl("/bm_pay");//权限不足显示购买会员页面
         return shiroFilterFactoryBean;
     }
 
