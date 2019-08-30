@@ -2,11 +2,13 @@ package com.sl.tackout.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * Created by happy on 2019/8/29.
  */
 @Data
-public class Foods {
+public class Foods implements Serializable {
     private int fid;//食物id
     private String fname;//食物名称
     private int fnum;//食物数量

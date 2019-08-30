@@ -24,54 +24,38 @@
         }
     </style>
 </head>
-
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <div><a class="navbar-brand" style="font-size:32px;" href="#">个人中心</a></div>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li style="padding-top:8px;">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i> xx <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                            <li class="divider"></li>
-                            <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li style="margin-left:10px;padding-top:8px;">
-                    <button type="button" class="btn btn-default btn-danger">
-                        <span class="glyphicon glyphicon-question-sign"></span> 帮助
-                    </button>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="查询">
-            </form>
-        </div>
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: sandybrown ; height: 50px">
+            <div class="container">
+                <div class="navbar-header">
+                    <div><a class="navbar-brand" href="/" style="font-size:32px;">啃得鸡霾当烙得客势外卖专家</a></div>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li style="padding-top: 15px">欢迎你：<span th:text="${session.userName}"></span></li>
+                        <li><a href="user_center">个人中心</a></li>
+                        <li><a href="loginOut">注销</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </div>
-</nav>
+</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <div class="tree">
                 <ul style="padding-left:0px;" class="list-group">
                     <li class="list-group-item tree-closed" >
-                        <a href="main"><i class="glyphicon glyphicon-dashboard"></i> 个人中心</a>
+                        <a href="#"><i class="glyphicon glyphicon-dashboard"></i> 个人中心</a>
                     </li>
                     <li class="list-group-item tree-closed">
                         <span><i class="glyphicon glyphicon glyphicon-tasks"></i> 我的订单 <span class="badge" style="float:right">3</span></span>
                         <ul style="margin-top:10px;display:none;">
                             <li style="height:30px;">
-                                <a href="user.html"><i class="glyphicon glyphicon-user"></i> 最近一个月</a>
+                                <a href="my_order"><i class="glyphicon glyphicon-user"></i> 最近一个月</a>
                             </li>
                             <li style="height:30px;">
                                 <a href="role.html"><i class="glyphicon glyphicon-king"></i> 所有已完成</a>
@@ -85,7 +69,7 @@
                                 <a href="auth_cert.html"><i class="glyphicon glyphicon-check"></i> 我的红包</a>
                             </li>
                             <li style="height:30px;">
-                                <a href="auth_cert.html"><i class="glyphicon glyphicon-check"></i> 我的优惠券</a>
+                                <a href="my_coupon"><i class="glyphicon glyphicon-check"></i> 我的优惠券</a>
                             </li>
                             <li style="height:30px;">
                                 <a href="auth_cert.html"><i class="glyphicon glyphicon-check"></i> 我的金币</a>

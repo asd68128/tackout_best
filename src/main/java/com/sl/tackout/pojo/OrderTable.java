@@ -2,18 +2,19 @@ package com.sl.tackout.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by happy on 2019/8/21.
  */
 @Data
-public class OrderTable {
+public class OrderTable implements Serializable {
     private int oid;//订单号
     private String oname;//订单名称（xx的订单）
     private int ofreight;//订单配送费
-    private int olunchbox_price;//订单餐盒费
-    private double ototal_price;//订单总价
+    private int olunchboxPrice;//订单餐盒费
+    private double ototalPrice;//订单总价
     private int ototalshare;//订单总商品数
     private String oremarks;//备注
     private Date ocreatTime;//创建时间
@@ -22,13 +23,13 @@ public class OrderTable {
     public OrderTable() {
     }
 
-    public OrderTable(int oid, String oname, int ofreight, int olunchbox_price, double ototal_price, int ototalshare, String oremarks, Date ocreatTime, int ostate) {
+    public OrderTable(int oid, String oname, int ofreight, int olunchboxPrice, double ototalPrice, int ototalshare, String oremarks, Date ocreatTime, int ostate) {
 
         this.oid = oid;
         this.oname = oname;
         this.ofreight = ofreight;
-        this.olunchbox_price = olunchbox_price;
-        this.ototal_price = ototal_price;
+        this.olunchboxPrice = olunchboxPrice;
+        this.ototalPrice = ototalPrice;
         this.ototalshare = ototalshare;
         this.oremarks = oremarks;
         this.ocreatTime = ocreatTime;
@@ -60,20 +61,20 @@ public class OrderTable {
         this.ofreight = ofreight;
     }
 
-    public int getOlunchbox_price() {
-        return olunchbox_price;
+    public int getOlunchboxPrice() {
+        return olunchboxPrice;
     }
 
-    public void setOlunchbox_price(int olunchbox_price) {
-        this.olunchbox_price = olunchbox_price;
+    public void setOlunchboxPrice(int olunchboxPrice) {
+        this.olunchboxPrice = olunchboxPrice;
     }
 
-    public double getOtotal_price() {
-        return ototal_price;
+    public double getOtotalPrice() {
+        return ototalPrice;
     }
 
-    public void setOtotal_price(double ototal_price) {
-        this.ototal_price = ototal_price;
+    public void setOtotalPrice(double ototalPrice) {
+        this.ototalPrice = ototalPrice;
     }
 
     public int getOtotalshare() {
@@ -114,8 +115,8 @@ public class OrderTable {
                 "oid=" + oid +
                 ", oname='" + oname + '\'' +
                 ", ofreight=" + ofreight +
-                ", olunchbox_price=" + olunchbox_price +
-                ", ototal_price=" + ototal_price +
+                ", olunchboxPrice=" + olunchboxPrice +
+                ", ototalPrice=" + ototalPrice +
                 ", ototalshare=" + ototalshare +
                 ", oremarks='" + oremarks + '\'' +
                 ", ocreatTime=" + ocreatTime +

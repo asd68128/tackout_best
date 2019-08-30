@@ -2,11 +2,13 @@ package com.sl.tackout.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * Created by happy on 2019/8/24.
  */
 @Data
-public class GoodsTable {
+public class GoodsTable implements Serializable {
     private int gid;//商品id
     private String gname;//商品名称
     private double gprice;//商品价格

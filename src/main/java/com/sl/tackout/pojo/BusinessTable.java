@@ -2,11 +2,13 @@ package com.sl.tackout.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * Created by happy on 2019/8/21.
  */
 @Data
-public class BusinessTable {
+public class BusinessTable implements Serializable {
     private int businessId;//商家id
     private String businessName;//商家名称
     private String businessPwd;//商家密码

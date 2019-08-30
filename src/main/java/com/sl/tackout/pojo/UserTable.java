@@ -2,13 +2,14 @@ package com.sl.tackout.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by happy on 2019/8/21.
  */
 @Data
-public class UserTable {
+public class UserTable implements Serializable {
     private int userId;//用户id
     private String userName;//用户名
     private String userPwd;//用户密码

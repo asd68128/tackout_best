@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>修改地址</title>
+    <title>我的优惠券</title>
     <style>
-        body{
+        div{
             text-align: center;
         }
     </style>
@@ -37,11 +37,30 @@
         </nav>
     </div>
 </div>
-<form action="newAddress">
-    新地址：<input th:value="${address}" name="userAddress">
-    <input type="submit" value="修改"/>
-</form>
+<h2>我的优惠券</h2>
+<div class="table-responsive">
+    <table class="table  table-bordered" >
+        <thead>
+        <tr >
+            <th width="80">序号</th>
+            <th width="150">面额</th>
+            <th >领取时间</th>
+            <th width="280">过期时间</th>
+            <th  width="120">状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="coupon:${allUrCoupon}">
+            <td th:text="${coupon.getCid()}"></td>
+            <td th:text="${coupon.getCvalue()}"></td>
+            <td th:text="${coupon.getCcreatTime()}"></td>
+            <td th:text="${coupon.getCendTime()}"></td>
+            <td th:text="${coupon.getCstate()}"></td>
+        </tr>
+        </tbody>
 
+    </table>
+</div>
 
 </body>
 </html>

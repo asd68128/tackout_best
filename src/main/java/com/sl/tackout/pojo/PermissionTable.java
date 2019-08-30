@@ -2,11 +2,13 @@ package com.sl.tackout.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * Created by happy on 2019/8/21.
  */
 @Data
-public class PermissionTable {//权限表只针对用户
+public class PermissionTable implements Serializable {//权限表只针对用户
     private int perId;//权限id
     private String perName;//权限名称
     private String pmenuUrl;//权限地址

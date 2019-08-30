@@ -19,19 +19,25 @@
     </style>
 </head>
 <body>
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: sandybrown ; height: 50px">
+            <div class="container">
+                <div class="navbar-header">
+                    <div><a class="navbar-brand" href="/" style="font-size:32px;">啃得鸡霾当烙得客势外卖专家</a></div>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li style="padding-top: 15px">欢迎你：<span th:text="${session.userName}"></span></li>
+                        <li><a href="user_center">个人中心</a></li>
+                        <li><a href="loginOut">注销</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
     <h2>个人信息</h2>
-    <!--<div>-->
-        <!--<form action="user_info">-->
-            <!--用户名：<input type="text" th:value="${userInfo.getUserName()}" readonly/><br>-->
-            <!--密码：<input type="password" th:value="${userInfo.getUserPwd()}"/><br>-->
-            <!--真实名字：<input type="text" th:value="${userInfo.getUserRealname()}" /><br>-->
-            <!--手机号：<input type="text" th:value="${userInfo.getUserPhone()}" /><br>-->
-            <!--地址：<input type="text" th:value="${userInfo.getUserAdress()}" /><br>-->
-            <!--头像：<input type="text" th:value="${userInfo.getUserPhoto()}" /><br>-->
-            <!--<input type="submit" value="确认修改"/>-->
-        <!--</form>-->
-    <!--</div>-->
-
     <div class="panel panel-default">
         <div class="panel-heading">个人信息<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
         <div class="panel-body">

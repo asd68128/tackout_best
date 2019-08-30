@@ -41,14 +41,14 @@
 <body>
 <div class="navbar-wrapper">
     <div class="container">
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: sandybrown ; height: 50px">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html" style="font-size:32px;">啃得鸡霾当烙得客势外卖专家</a>
+                    <div><a class="navbar-brand" href="/" style="font-size:32px;">啃得鸡霾当烙得客势外卖专家</a></div>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse" style="float:right;">
                     <ul class="nav navbar-nav navbar-right">
-
+                        <li style="padding-top: 15px">欢迎你：<span th:text="${session.userName}"></span></li>
                         <li><a href="user_center">个人中心</a></li>
                         <li><a href="loginOut">注销</a></li>
                     </ul>
@@ -57,7 +57,6 @@
         </nav>
     </div>
 </div>
-<div>
     <h2>领取优惠券</h2>
     <p>
         <h3>尊敬的：<span th:text="${session.userName}"></span>,</h3>
@@ -65,35 +64,48 @@
 
     </p>
     <div id="div1">
+        <form>
 
+        </form>
             <label>
                 <span>3元优惠券：</span>
                 <img src="img/3yuan.jpg"/>
-                <input type="radio" name="coupon" checked="checked"/>
+                <input type="radio" name="couponValue" value="3" checked="checked"/>
             </label>
         <br>
             <label>
                 <span>5元优惠券：</span>
                 <img src="img/5yuan.jpg"/>
-                <input type="radio" name="coupon"/>
+                <input type="radio" name="couponValue" value="5"/>
             </label>
         <br>
             <label>
                 <span>15元优惠券：</span>
                 <img src="img/15yuan.jpg"/>
-                <input type="radio" name="coupon"/>
+                <input type="radio" name="couponValue" value="15"/>
             </label>
         <br>
         <div class="bt1">
-            <button type="button" onclick="window.location.href='main'">领取</button>
+            <button type="button" onclick="receiveCoupon()">领取</button>
         </div>
-
-
     </div>
 
-
-
 </div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script src="jquery/jquery-2.1.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+   function  receiveCoupon() {
+       var val=$("input[type='radio']:checked").val();
+       var r=confirm("确定领取"+val+"元优惠券吗？")
+       if (r==true){
+            window.location.href="confirm_receive/"+val;
+       }else {
+           window.location.href="member_coupon";
+       }
+   }
+</script>
 
 
 </body>

@@ -1,6 +1,8 @@
 package com.sl.tackout.controller;
 
+import com.sl.tackout.pojo.CouponTable;
 import com.sl.tackout.pojo.UserTable;
+import com.sl.tackout.service.CouponService;
 import com.sl.tackout.service.UserService;
 import com.sl.tackout.utils.ImgCode;
 import com.sl.tackout.utils.MD5;
@@ -9,24 +11,25 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import static javax.print.attribute.standard.MediaPrintableArea.MM;
 
 /**
  * Created by happy on 2019/8/21.
@@ -35,6 +38,8 @@ import java.util.Date;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private CouponService couponService;
     @RequestMapping("/")
     public String index(){
         return "index";
@@ -56,6 +61,8 @@ public class UserController {
     }
     @RequestMapping("main")//用户主页面
     public String main() {
+
+
         return "main";
     }
 
@@ -93,15 +100,49 @@ public class UserController {
     }
 
 
+
+
+
     @RequestMapping("bm_pay")//购买会员
     public String bmPay(){
         return "bm_pay";
     }
     @RequiresPermissions("coupon")
-    @RequestMapping("member_coupon")//领取优惠券
+    @RequestMapping("member_coupon")//到优惠券页面
     public String buyingMembers() {
         return "member_coupon";
     }
+
+
+    @RequestMapping(value = "/confirm_receive/{cvalue}")//给用户领取优惠券
+    public String confirmReceive(@PathVariable("cvalue") String couponValue, HttpSession session){
+
+        int maxCid = couponService.findMaxCid();
+
+        int cvalue=Integer.parseInt(couponValue);
+        String userName = (String) session.getAttribute("userName");
+        UserTable userByLoginName = userService.findUserByLoginName(userName);
+        int userId = userByLoginName.getUserId();
+        Date date = new Date();//当前时间
+        Calendar today = Calendar.getInstance();
+        today.add(Calendar.DAY_OF_YEAR,7);
+        Date time = today.getTime();//七天后的时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String nowdate = simpleDateFormat.format(date);
+        String ftime = simpleDateFormat.format(time);
+        CouponTable couponTable = new CouponTable(maxCid + 1, cvalue, nowdate, ftime, 1, userId);
+
+        couponService.addUserCoupon(couponTable);
+        return "drink";
+    }
+    @RequestMapping("my_coupon")//用户查看优惠券
+    public String myCoupon(HttpSession session,Model model){
+        String userName = (String) session.getAttribute("userName");
+        List<CouponTable> allUrCoupon = couponService.findAllUrCoupon(userName);
+        model.addAttribute("allUrCoupon",allUrCoupon);
+        return "my_coupon";
+    }
+
     @RequestMapping("drink")//点餐
     public String drink(HttpSession session) {
         String userName = (String) session.getAttribute("userName");
@@ -118,6 +159,9 @@ public class UserController {
         String userName = (String) session.getAttribute("userName");
         UserTable userInfo = userService.findUserByLoginName(userName);
         model.addAttribute("user",userInfo);
+
+        List<CouponTable> allUrCoupon = couponService.findAllUrCoupon(userName);
+        model.addAttribute("allUrCoupon",allUrCoupon);
         return "order";
     }
     @RequestMapping("upAddress")//修改地址
@@ -127,7 +171,7 @@ public class UserController {
         model.addAttribute("address",userInfo.getUserAdress());
         return "upAddress";
     }
-    @RequestMapping("newAddress")//跟换新地址
+    @RequestMapping("newAddress")//更换新地址
     public String newAddress(HttpSession session,Model model,String userAddress) {
         System.out.println(userAddress);
         String userName = (String) session.getAttribute("userName");
@@ -157,9 +201,9 @@ public class UserController {
     @RequestMapping("register")
     public String register(String userName, String userPwd, String userPhone, String userImgCode, Model model, HttpSession session) {
         if (userName != null && userName != "" && userPwd != null && userPwd != "" && userPhone != null && userPhone != "") {
-//            String imgCode = (String) session.getAttribute(ImgCode.RANDOMCODEKEY);
-//            if (StringUtils.startsWithIgnoreCase(imgCode,userImgCode)) {//验证码正确
-//            }
+            String imgCode = (String) session.getAttribute(ImgCode.RANDOMCODEKEY);
+            if (StringUtils.startsWithIgnoreCase(imgCode,userImgCode)) {//验证码正确
+
             UserTable userByLoginName = userService.findUserByLoginName(userName);
             if (userByLoginName != null) {
                 model.addAttribute("error", "您输入的用户名已存在，请重新输入");
@@ -182,43 +226,51 @@ public class UserController {
             model.addAttribute("error", "必填项不能为空");
             return "reg";
         }
+        }else {
+            model.addAttribute("error", "验证码错误");
+            return "reg";
+        }
     }
 
     //    登录验证
     @RequestMapping("isLogin")
     public String isLogin(String userName, String userPwd, String userImgCode, Model model,HttpSession session) {
         if (userName != null && userName != "" && userPwd != null && userPwd != "" && userImgCode != null && userImgCode != "") {
-//            String imgCode = (String) session.getAttribute(ImgCode.RANDOMCODEKEY);
-//            if (StringUtils.startsWithIgnoreCase(imgCode,userImgCode)) {//验证码正确
-//            }
-            Subject subject = SecurityUtils.getSubject();
-            String md5Upwd = new MD5().getMD5ofStr(userPwd);
-            UsernamePasswordToken token = new UsernamePasswordToken(userName,md5Upwd);
-            try {
-                subject.login(token);
-                if (subject.isAuthenticated()) {
-                    session.setAttribute("userName",userName);
-                    return "main";
-                } else {
-                    model.addAttribute("error", "登录失败,请再试一遍");
+            String imgCode = (String) session.getAttribute(ImgCode.RANDOMCODEKEY);
+            if (StringUtils.startsWithIgnoreCase(imgCode, userImgCode)) {//验证码正确
+                Subject subject = SecurityUtils.getSubject();
+                String md5Upwd = new MD5().getMD5ofStr(userPwd);
+                UsernamePasswordToken token = new UsernamePasswordToken(userName, md5Upwd);
+                try {
+                    subject.login(token);
+                    if (subject.isAuthenticated()) {
+                        session.setAttribute("userName", userName);
+                        return "main";
+                    } else {
+                        model.addAttribute("error", "登录失败,请再试一遍");
+                        return "login";
+                    }
+                } catch (UnknownAccountException un) {
+                    model.addAttribute("error", "用户名不存在");
                     return "login";
-                }
-            } catch (UnknownAccountException un) {
-                model.addAttribute("error", "用户名不存在");
-                return "login";
-            } catch (IncorrectCredentialsException ice) {
-                model.addAttribute("error", "用户名或密码错误");
-                return "login";
+                } catch (IncorrectCredentialsException ice) {
+                    model.addAttribute("error", "用户名或密码错误");
+                    return "login";
 //            }catch (AuthorizationException az){//权限不足
 //                model.addAttribute("error", "你没有权限");
-            } catch (AuthenticationException ae) {//身份验证失败
-                ae.printStackTrace();
+                } catch (AuthenticationException ae) {//身份验证失败
+                    ae.printStackTrace();
+                }
+
+            } else {
+                model.addAttribute("error", "验证码错误");
+                return "login";
             }
-            return "login";
-        }else {//输入空信息
+        } else {//输入空信息
             model.addAttribute("error", "请输入完整的用户名密码");
             return "login";
         }
+        return "login";
     }
 
 }

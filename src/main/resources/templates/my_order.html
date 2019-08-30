@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>修改地址</title>
+    <title>我的订单</title>
     <style>
-        body{
+        div{
             text-align: center;
         }
     </style>
@@ -37,11 +37,32 @@
         </nav>
     </div>
 </div>
-<form action="newAddress">
-    新地址：<input th:value="${address}" name="userAddress">
-    <input type="submit" value="修改"/>
-</form>
+<h2>近一个月订单:</h2>
+<div class="table-responsive">
+    <table class="table  table-bordered" >
+        <thead>
+        <tr >
+            <th width="80">订单号</th>
+            <th width="150">下单时间</th>
+            <th >订单内容</th>
+            <th width="80">总价</th>
+            <th  width="120">状态</th>
+            <th width="150">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order:${orderList}">
+            <td th:text="${order.getOid()}">1</td>
+            <td th:text="${order.getOcreatTime()}">2018</td>
+            <td th:text="${order.getOname()}">黄焖鸡</td>
+            <td th:text="${order.getOtotalPrice()}">45</td>
+            <td th:text="${order.getOstate()}">已完成</td>
+            <td><a href="#">查看详情</a></td>
+        </tr>
+        </tbody>
 
+    </table>
+</div>
 
 </body>
 </html>
